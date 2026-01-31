@@ -13,10 +13,13 @@ function Projects() {
     },
     {
       id: 2,
-      title: "AI Chatbot Clone",
-      category: "CHAT BOT",
-      description: "An interactive AI chatbot clone with natural language processing capabilities.",
-      image: "🤖"
+      title: "Pharmacy Management System",
+      category: "DATABASE + BACKEND SYSTEMS",
+      description:
+        "A full pharmacy management system built with Python (Flask) and Oracle SQL. It supports medicine management, sales via stored procedures, returns, restocking, and real-time database operations.",
+      icon: "💊",
+      live: "https://pharmacy-system-biwq.onrender.com/",
+      github: "https://github.com/Camanze-alt72/pharmacy-system"
     },
     {
       id: 3,
