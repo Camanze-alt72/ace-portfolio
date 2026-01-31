@@ -4,10 +4,12 @@ function Projects() {
   const projects = [
     {
       id: 1,
-      title: "Responsive Restaurant Website Template",
-      category: "WEB DESIGN",
-      description: "A modern and responsive restaurant website showcasing menu items and online reservation system.",
-      image: "🍽️"
+      title: "Payment4AV",
+      category: "FILE BASED DATA MANAGEMENT",
+      description: "A Python-based work-hours tracking and invoice generation system with authentication, client management, and PDF invoice exports.",
+      live: "https://payment4av.onrender.com/",
+      github: "https://github.com/Camanze-alt72/payment4av",
+      image: "💼"
     },
     {
       id: 2,
@@ -48,7 +50,25 @@ function Projects() {
                 <span className="project-category">{project.category}</span>
                 <h3 className="project-title">{project.title}</h3>
                 <p className="project-description">{project.description}</p>
-                <button className="project-btn">+</button>
+                {project.tech && (
+                  <div className="project-tech">
+                    {project.tech.map((tech, index) => (
+                      <span key={index} className="tech-badge">{tech}</span>
+                    ))}
+                  </div>
+                )}
+                <div className="project-links">
+                  {project.live && (
+                    <a href={project.live} target="_blank" rel="noopener noreferrer" className="project-link">
+                      Live Demo
+                    </a>
+                  )}
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link">
+                      GitHub
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}

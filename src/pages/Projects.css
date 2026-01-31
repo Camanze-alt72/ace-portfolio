@@ -89,6 +89,47 @@
   font-size: 1.1rem;
 }
 
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tech-badge {
+  background: #f0f0f0;
+  color: #333;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-link {
+  background: #80db66;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.project-link:hover {
+  background: transparent;
+  color: #80db66;
+  border: 2px solid #80db66;
+  transform: translateY(-2px);
+}
+
 .project-btn {
   position: absolute;
   bottom: 2rem;
