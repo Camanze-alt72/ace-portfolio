@@ -8,7 +8,6 @@ function Projects() {
       category: "FILE BASED DATA MANAGEMENT",
       description: "A Python-based work-hours tracking and invoice generation system with authentication, client management, and PDF invoice exports.",
       live: "https://payment4av.onrender.com/",
-      github: "https://github.com/Camanze-alt72/payment4av.git",
       image: "💼"
     },
     {
@@ -18,8 +17,7 @@ function Projects() {
       description:
         "A full pharmacy management system built with Python (Flask) and Oracle SQL. It supports medicine management, sales via stored procedures, returns, restocking, and real-time database operations.",
       image: "💊",
-      live: "https://pharmacy-system-biwq.onrender.com/",
-      github: "https://github.com/Camanze-alt72/pharmacy-system.git"
+      live: "https://pharmacy-system-biwq.onrender.com/"
     },
     {
       id: 3,
@@ -63,12 +61,7 @@ function Projects() {
                 <div className="project-links">
                   {project.live && (
                     <a href={project.live} target="_blank" rel="noopener noreferrer" className="project-link">
-                      Live Demo
-                    </a>
-                  )}
-                  {project.github && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link">
-                      Git
+                      Go Live
                     </a>
                   )}
                 </div>
