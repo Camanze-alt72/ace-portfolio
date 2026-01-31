@@ -166,6 +166,14 @@
 }
 
 @media (max-width: 768px) {
+  .about-banner {
+    padding: 2rem 1rem;
+  }
+  
+  .about-container {
+    padding: 2rem 1rem;
+  }
+  
   .about-content {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -176,7 +184,64 @@
     gap: 1rem;
   }
   
+  .section-subtitle {
+    font-size: 0.9rem;
+  }
+  
   .section-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+  
+  .about-description {
+    font-size: 1.1rem;
+  }
+  
+  .name-badge {
+    font-size: 1.2rem;
+    padding: 0.4rem 1.5rem;
+  }
+  
+  .cv-badge-container {
+    bottom: -15px;
+    right: -15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-banner {
+    padding: 1.5rem 0.8rem;
+  }
+  
+  .about-container {
+    padding: 1.5rem 0.8rem;
+  }
+  
+  .section-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .about-description {
+    font-size: 1rem;
+  }
+  
+  .about-details {
+    padding: 1.5rem;
+  }
+  
+  .name-badge {
+    font-size: 1rem;
+    padding: 0.3rem 1.2rem;
+  }
+  
+  .detail-label {
+    font-size: 0.85rem;
+  }
+  
+  .detail-value {
+    font-size: 0.95rem;
   }
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Contact.css';
 
@@ -11,6 +11,9 @@ function Contact() {
     email: '',
     message: ''
   });
+  const [slidePosition, setSlidePosition] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const sliderRef = useRef(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,6 +27,36 @@ function Contact() {
     console.log('Form Data:', formData);
     alert('Message sent! Redirecting to home page...');
     navigate('/');
+  };
+
+  const handleSlideStart = (e) => {
+    setIsDragging(true);
+    e.preventDefault();
+  };
+
+  const handleSlideMove = (e) => {
+    if (!isDragging || !sliderRef.current) return;
+    
+    const slider = sliderRef.current;
+    const rect = slider.getBoundingClientRect();
+    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    const position = clientX - rect.left;
+    const maxWidth = rect.width - 60;
+    
+    if (position >= 0 && position <= maxWidth) {
+      setSlidePosition(position);
+    }
+    
+    if (position >= maxWidth * 0.9) {
+      setIsDragging(false);
+      handleSubmit(e);
+      setSlidePosition(0);
+    }
+  };
+
+  const handleSlideEnd = () => {
+    setIsDragging(false);
+    setSlidePosition(0);
   };
 
   return (
@@ -124,7 +157,29 @@ function Contact() {
               ></textarea>
             </div>
 
-            <button type="submit" className="submit-btn">SUBMIT NOW</button>
+            <button type="submit" className="submit-btn desktop-submit">SUBMIT</button>
+            
+            <div 
+              className="slide-submit mobile-submit"
+              ref={sliderRef}
+              onMouseMove={handleSlideMove}
+              onMouseUp={handleSlideEnd}
+              onMouseLeave={handleSlideEnd}
+              onTouchMove={handleSlideMove}
+              onTouchEnd={handleSlideEnd}
+            >
+              <div className="slide-track">
+                <span className="slide-text">Slide to Submit</span>
+              </div>
+              <div 
+                className="slide-button"
+                style={{ left: `${slidePosition}px` }}
+                onMouseDown={handleSlideStart}
+                onTouchStart={handleSlideStart}
+              >
+                →
+              </div>
+            </div>
           </form>
         </div>
       </div>

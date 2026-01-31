@@ -149,30 +149,72 @@
 }
 
 @media (max-width: 768px) {
+  .hero-section {
+    padding: 2rem 1rem;
+    margin: 1rem;
+  }
+  
   .hero-content {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
   
+  .hello-text {
+    font-size: 1.1rem;
+  }
+  
   .name-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
   
   .role-title {
     font-size: 2rem;
   }
   
-  .image-placeholder {
-    width: 300px;
-    height: 300px;
+  .hero-description {
+    font-size: 1.1rem;
   }
   
-  .social-links {
-    position: static;
-    transform: none;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 2rem;
+  .image-placeholder {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 1.5rem 0.8rem;
+    margin: 0.5rem;
+  }
+  
+  .hero-content {
+    gap: 1.5rem;
+  }
+  
+  .hello-text {
+    font-size: 1rem;
+  }
+  
+  .name-title {
+    font-size: 2.2rem;
+  }
+  
+  .role-title {
+    font-size: 1.5rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .image-placeholder {
+    width: 240px;
+    height: 240px;
+  }
+  
+  .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
   }
 }
 

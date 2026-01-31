@@ -69,11 +69,70 @@
 }
 
 @media (max-width: 768px) {
+  .services-banner {
+    padding: 2rem 1rem;
+  }
+  
+  .services-container {
+    padding: 2rem 1rem;
+  }
+  
+  .section-subtitle {
+    font-size: 0.9rem;
+  }
+  
   .section-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
   
   .services-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .service-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .service-card h3 {
+    font-size: 1.5rem;
+  }
+  
+  .service-card p {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-banner {
+    padding: 1.5rem 0.8rem;
+  }
+  
+  .services-container {
+    padding: 1.5rem 0.8rem;
+  }
+  
+  .section-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .service-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  .service-icon {
+    font-size: 3rem;
+  }
+  
+  .service-card h3 {
+    font-size: 1.3rem;
+  }
+  
+  .service-card p {
+    font-size: 0.95rem;
   }
 }

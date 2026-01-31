@@ -142,16 +142,169 @@
   color: #80db66;
 }
 
+.mobile-submit {
+  display: none;
+}
+
+.slide-submit {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  background: #f0f0f0;
+  border-radius: 30px;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 1rem;
+}
+
+.slide-track {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #80db66 0%, #f0f0f0 0%);
+  transition: background 0.3s;
+}
+
+.slide-text {
+  color: #666;
+  font-weight: 600;
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.slide-button {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 50px;
+  height: 50px;
+  background: #80db66;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  cursor: grab;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.2s;
+}
+
+.slide-button:active {
+  cursor: grabbing;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 @media (max-width: 768px) {
+  .desktop-submit {
+    display: none;
+  }
+  
+  .mobile-submit {
+    display: block;
+  }
+  
+  .contact-banner {
+    padding: 2rem 1rem;
+  }
+  
+  .contact-container {
+    padding: 2rem 1rem;
+  }
+  
   .contact-content {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
   
   .form-row {
     grid-template-columns: 1fr;
   }
   
+  .section-subtitle {
+    font-size: 0.9rem;
+  }
+  
   .section-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+  
+  .contact-info {
+    padding: 2rem 1.5rem;
+  }
+  
+  .contact-info h2 {
+    font-size: 1.8rem;
+  }
+  
+  .contact-form {
+    padding: 2rem;
+  }
+  
+  .info-item strong {
+    font-size: 1.1rem;
+  }
+  
+  .info-item p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-banner {
+    padding: 1.5rem 0.8rem;
+  }
+  
+  .contact-container {
+    padding: 1.5rem 0.8rem;
+  }
+  
+  .section-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .contact-info {
+    padding: 1.5rem 1rem;
+  }
+  
+  .contact-info h2 {
+    font-size: 1.5rem;
+  }
+  
+  .contact-form {
+    padding: 1.5rem;
+  }
+  
+  .info-item {
+    padding: 1rem;
+  }
+  
+  .info-icon {
+    font-size: 1.5rem;
+  }
+  
+  .info-item strong {
+    font-size: 1rem;
+  }
+  
+  .info-item p {
+    font-size: 0.95rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    font-size: 1rem;
+  }
+  
+  .submit-btn {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
   }
 }
