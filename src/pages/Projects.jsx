@@ -19,20 +19,15 @@ function Projects() {
       image: "💊",
       live: "https://pharmacy-system-biwq.onrender.com/"
     },
-    {
+     {
       id: 3,
-      title: "E-commerce Website Template",
-      category: "E-COMMERCE",
-      description: "Full-featured e-commerce platform with shopping cart and payment integration.",
-      image: "🛒"
+      title: "AI-Powered Chatbot",
+      category: "ARTIFICIAL INTELLIGENCE",
+      description:
+        "A conversational AI chatbot built with React and a Node.js proxy server, integrated with Hugging Face models for real-time AI responses.",
+      image: "🤖",
+      live: "https://gistwithmaobi.netlify.app/"
     },
-    {
-      id: 4,
-      title: "Weather Dashboard Template",
-      category: "WEATHER DASHBOARD",
-      description: "Real-time weather dashboard displaying forecasts and weather data visualization.",
-      image: "🌤️"
-    }
   ];
 
   return (
