@@ -1,0 +1,278 @@
+.admin {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #ffffff;
+  background-attachment: fixed;
+}
+
+.admin-header {
+  max-width: 1000px;
+  margin: 0 auto 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.admin-header .header-content {
+  text-align: center;
+  flex: 1;
+}
+
+.admin-header h1 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 2.5rem;
+}
+
+.admin-header p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #666;
+  opacity: 0.9;
+}
+
+.messages-container {
+  max-width: 1000px;
+  margin: 0 auto 30px;
+  display: grid;
+  gap: 20px;
+}
+
+.message-card {
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.message-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.message-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.delete-btn {
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #ff3838;
+}
+
+.message-details {
+  margin-bottom: 20px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.detail-row strong {
+  color: #667eea;
+  min-width: 100px;
+}
+
+.detail-row span {
+  color: #666;
+  word-break: break-all;
+}
+
+.message-content {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  border-left: 4px solid #667eea;
+}
+
+.message-content strong {
+  color: #333;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.message-content p {
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.no-messages {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  padding: 60px 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.no-messages p {
+  font-size: 1.2rem;
+  color: #999;
+  margin: 0;
+}
+
+.error-message {
+  max-width: 1000px;
+  margin: 0 auto 20px;
+  background: #ff6b6b;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.logout-btn {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #ff5252;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-box h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
+
+.login-box .form-group {
+  margin-bottom: 20px;
+}
+
+.login-box label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 600;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.login-box input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #5568d3;
+}
+
+.refresh-btn {
+  display: block;
+  margin: 0 auto;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.refresh-btn:hover {
+  background-color: #27ae60;
+}
+
+@media (max-width: 768px) {
+  .admin {
+    padding: 20px 15px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .logout-btn {
+    width: 100%;
+  }
+
+  .message-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .delete-btn {
+    align-self: flex-start;
+  }
+}
