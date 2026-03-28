@@ -22,11 +22,40 @@ function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
-    alert('Message sent! Redirecting to home page...');
-    navigate('/');
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      const data = await response.json();
+      console.log('Response:', data);
+      
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        contactNumber: '',
+        email: '',
+        message: ''
+      });
+      
+      alert('Message sent successfully! Redirecting to home page...');
+      navigate('/');
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Failed to send message. Please try again.');
+    }
   };
 
   const handleSlideStart = (e) => {

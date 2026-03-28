@@ -10,6 +10,7 @@ import referenceRoutes from './routes/referenceRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
 import serviceRoutes from './routes/serviceRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import contactRoutes from './routes/contactRoutes.js';
 
 // Load environment variables
 dotenv.config();
@@ -31,6 +32,7 @@ app.use('/api/references', referenceRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/contacts', contactRoutes);
 
 // Root route
 app.get('/', (req, res) => {
