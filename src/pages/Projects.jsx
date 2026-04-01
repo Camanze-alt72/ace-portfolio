@@ -1,7 +1,12 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Projects.css';
 
 function Projects() {
-  const projects = [
+  const navigate = useNavigate();
+  
+  // Default/hardcoded projects
+  const defaultProjects = [
     {
       id: 1,
       title: "Payment4AV",
@@ -30,11 +35,56 @@ function Projects() {
     },
   ];
 
+  const [projects, setProjects] = useState(defaultProjects);
+
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+  // Fetch projects from API
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/projects`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.data && data.data.length > 0) {
+            // Merge API projects with default projects for images and categories
+            const mergedProjects = data.data.map(apiProject => {
+              const defaultProject = defaultProjects.find(d => d.title === apiProject.title);
+              return {
+                ...apiProject,
+                image: defaultProject?.image || '🚀',
+                category: defaultProject?.category || 'PROJECT',
+                live: defaultProject?.live
+              };
+            });
+            // Also keep default projects that aren't in the API
+            const apiTitles = data.data.map(p => p.title);
+            const remainingDefaults = defaultProjects.filter(d => !apiTitles.includes(d.title));
+            setProjects([...mergedProjects, ...remainingDefaults]);
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching projects:', err);
+        // Keep default projects on error
+      }
+    };
+
+    fetchProjects();
+  }, [API_BASE_URL]);
+
   return (
     <div className="projects">
       <div className="projects-banner">
-        <h2 className="section-subtitle">PORTFOLIO</h2>
-        <h1 className="section-title">My Recent Works</h1>
+        <div className="banner-content">
+          <h2 className="section-subtitle">PROJECTS</h2>
+          <h1 className="section-title">My Recent Works</h1>
+        </div>
+        <button 
+          className="manage-projects-btn"
+          onClick={() => navigate('/admin/projects')}
+        >
+          Manage Projects
+        </button>
       </div>
 
       <div className="projects-container">

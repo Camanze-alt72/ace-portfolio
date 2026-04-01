@@ -1,0 +1,177 @@
+.references {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.references-banner {
+  background: #000;
+  padding: 3rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: white;
+  border-bottom: 3px solid #2ecc71;
+}
+
+.banner-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.section-title {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.banner-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.add-reference-btn {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  animation: bounce 2s infinite;
+}
+
+.add-reference-btn:hover {
+  background-color: #27ae60;
+  animation: none;
+}
+
+.manage-references-btn {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  animation: bounce 2s infinite;
+}
+
+.manage-references-btn:hover {
+  background-color: #27ae60;
+  animation: none;
+}
+
+.references-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.references-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.reference-card {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.reference-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+  border: 2px solid #2ecc71;
+}
+
+.reference-content {
+  text-align: center;
+}
+
+.reference-name {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.reference-title {
+  font-size: 1rem;
+  color: #2ecc71;
+  margin: 0 0 0.3rem 0;
+  font-weight: 600;
+}
+
+.reference-company {
+  font-size: 0.9rem;
+  color: #999;
+  margin: 0 0 1rem 0;
+}
+
+.reference-message {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .references-banner {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .banner-content {
+    text-align: left;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .manage-references-btn {
+    width: 100%;
+  }
+
+  .references-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reference-card {
+    padding: 1.5rem;
+  }
+
+  .reference-name {
+    font-size: 1.3rem;
+  }
+}

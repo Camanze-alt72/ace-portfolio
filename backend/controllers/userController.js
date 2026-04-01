@@ -1,14 +1,11 @@
 import User from "../models/user.js";
 import mongoose from "mongoose";
 
-// helper: shape response with id not _id (and no password)
+// helper: shape response with id not _id
 const toUserDTO = (user) => ({
   firstname: user.firstname,
   lastname: user.lastname,
-  email: user.email,
-  username: user.username ?? "",
   created: user.created,
-  updated: user.updated,
   id: user._id.toString(),
 });
 
@@ -54,21 +51,21 @@ export const getUserById = async (req, res, next) => {
 // Add new user
 export const addUser = async (req, res, next) => {
   try {
-    // Postman sends extra fields (firstName/lastName + username). :contentReference[oaicite:3]{index=3}
+    // Support both firstname/lastname and firstName/lastName formats
     const firstname = req.body.firstname ?? req.body.firstName;
     const lastname = req.body.lastname ?? req.body.lastName;
 
-    const { email, password } = req.body;
-    const username = req.body.username ?? "";
+    if (!firstname || !lastname) {
+      return res.status(400).json({
+        success: false,
+        message: "First name and last name are required.",
+      });
+    }
 
     const savedUser = await User.create({
       firstname,
       lastname,
-      email,
-      password,
-      username,
       created: new Date(),
-      updated: new Date(),
     });
 
     res.status(201).json({
@@ -90,17 +87,13 @@ export const updateUser = async (req, res, next) => {
       return res.status(400).json({ success: false, message: "Invalid ID." });
     }
 
-    // Don't overwrite fields with undefined
-    const update = { updated: new Date() };
+    const update = {};
 
     const firstname = req.body.firstname ?? req.body.firstName;
     const lastname = req.body.lastname ?? req.body.lastName;
 
     if (firstname !== undefined) update.firstname = firstname;
     if (lastname !== undefined) update.lastname = lastname;
-    if (req.body.email !== undefined) update.email = req.body.email;
-    if (req.body.password !== undefined) update.password = req.body.password;
-    if (req.body.username !== undefined) update.username = req.body.username;
 
     const updatedUser = await User.findByIdAndUpdate(id, update, {
       new: true,
@@ -114,6 +107,7 @@ export const updateUser = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "User updated successfully.",
+      data: toUserDTO(updatedUser),
     });
   } catch (error) {
     next(error);

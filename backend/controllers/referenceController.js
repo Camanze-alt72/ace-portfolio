@@ -3,11 +3,10 @@ import mongoose from "mongoose";
 
 // helper: map Mongo doc -> required response format (id not _id)
 const toRefDTO = (ref) => ({
-  firstname: ref.firstname,
-  lastname: ref.lastname,
-  email: ref.email,
-  position: ref.position,
+  name: ref.name,
+  title: ref.title,
   company: ref.company,
+  message: ref.message,
   id: ref._id.toString(),
 });
 
@@ -53,18 +52,13 @@ export const getReferenceById = async (req, res, next) => {
 // Add new reference
 export const addReference = async (req, res, next) => {
   try {
-    // Accept both snake-case and camelCase from Postman
-    const firstname = req.body.firstname ?? req.body.firstName;
-    const lastname = req.body.lastname ?? req.body.lastName;
-
-    const { email, position, company } = req.body;
+    const { name, title, company, message } = req.body;
 
     const savedReference = await Reference.create({
-      firstname,
-      lastname,
-      email,
-      position,
+      name,
+      title,
       company,
+      message,
     });
 
     res.status(201).json({
@@ -86,16 +80,13 @@ export const updateReference = async (req, res, next) => {
       return res.status(400).json({ success: false, message: "Invalid ID." });
     }
 
-    // Accept both name styles, and don't overwrite with undefined
+    // Build update object with the new field names
     const update = {};
-    const firstname = req.body.firstname ?? req.body.firstName;
-    const lastname = req.body.lastname ?? req.body.lastName;
 
-    if (firstname !== undefined) update.firstname = firstname;
-    if (lastname !== undefined) update.lastname = lastname;
-    if (req.body.email !== undefined) update.email = req.body.email;
-    if (req.body.position !== undefined) update.position = req.body.position;
+    if (req.body.name !== undefined) update.name = req.body.name;
+    if (req.body.title !== undefined) update.title = req.body.title;
     if (req.body.company !== undefined) update.company = req.body.company;
+    if (req.body.message !== undefined) update.message = req.body.message;
 
     const updatedReference = await Reference.findByIdAndUpdate(id, update, {
       new: true,
@@ -109,6 +100,7 @@ export const updateReference = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Reference updated successfully.",
+      data: toRefDTO(updatedReference),
     });
   } catch (error) {
     next(error);

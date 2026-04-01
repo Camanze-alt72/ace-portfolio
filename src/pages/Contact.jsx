@@ -26,6 +26,30 @@ function Contact() {
     e.preventDefault();
     
     try {
+      // Create user from contact form submission
+      try {
+        const userResponse = await fetch('http://localhost:3000/api/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            firstname: formData.firstName,
+            lastname: formData.lastName
+          })
+        });
+
+        if (!userResponse.ok) {
+          const errorData = await userResponse.json();
+          console.warn('User creation warning:', errorData.message || 'Failed to create user');
+        } else {
+          console.log('User created successfully from contact form');
+        }
+      } catch (userErr) {
+        console.error('Error creating user:', userErr);
+      }
+
+      // Send contact message
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/contacts`, {
         method: 'POST',
         headers: {

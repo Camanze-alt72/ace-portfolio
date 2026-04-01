@@ -5,6 +5,7 @@ const toProjectDTO = (project) => ({
   title: project.title,
   completion: project.completion,
   description: project.description,
+  image: project.image,
   id: project._id.toString(),
 });
 

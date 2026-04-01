@@ -5,6 +5,10 @@ import createError from 'http-errors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 
+
+import firebase from './config/firebase.js';
+
+firebase();
 // Import routes
 import referenceRoutes from './routes/referenceRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';

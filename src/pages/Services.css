@@ -8,7 +8,7 @@
   padding: 3rem 2rem;
   text-align: center;
   color: white;
-  border-bottom: 3px solid #80db66;
+  border-bottom: 3px solid #2ecc71;
 }
 
 .section-subtitle {
@@ -46,14 +46,14 @@
 
 .service-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 20px rgba(128, 219, 102, 0.3);
-  border: 2px solid #80db66;
+  box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+  border: 2px solid #2ecc71;
 }
 
 .service-icon {
   font-size: 3.5rem;
   margin-bottom: 1.5rem;
-  filter: drop-shadow(0 4px 6px rgba(128, 219, 102, 0.3));
+  filter: drop-shadow(0 4px 6px rgba(46, 204, 113, 0.3));
 }
 
 .service-card h3 {
@@ -66,6 +66,47 @@
   color: #666;
   line-height: 1.8;
   font-size: 1.2rem;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.services-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.banner-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.manage-services-btn {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  animation: bounce 2s infinite;
+}
+
+.manage-services-btn:hover {
+  background-color: #27ae60;
+  animation: none;
 }
 
 @media (max-width: 768px) {
