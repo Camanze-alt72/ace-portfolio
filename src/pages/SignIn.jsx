@@ -81,7 +81,7 @@ function SignIn() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="Enter email"
               required
             />
           </div>
@@ -94,7 +94,7 @@ function SignIn() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Enter your password"
+              placeholder="Enter password"
               required
             />
           </div>

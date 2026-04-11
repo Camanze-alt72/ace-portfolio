@@ -24,7 +24,7 @@ function Dashboard() {
         <div className="dashboard-header">
           <div className="header-content">
             <h1>Welcome, {user?.firstname}!</h1>
-            <p className="subtitle">Manage your portfolio</p>
+            <p className="subtitle">Manage portfolio</p>
           </div>
           <button className="logout-button" onClick={handleLogout}>
             Sign Out
@@ -40,7 +40,7 @@ function Dashboard() {
             >
               <div className="card-icon">{item.icon}</div>
               <h3>{item.label}</h3>
-              <p>Manage your {item.label.toLowerCase()}</p>
+              <p>Manage {item.label.toLowerCase()}</p>
               <div className="card-arrow">→</div>
             </div>
           ))}

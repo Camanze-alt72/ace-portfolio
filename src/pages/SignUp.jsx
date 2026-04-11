@@ -90,7 +90,6 @@ function SignUp() {
     <div className="auth-page">
       <div className="auth-card">
         <h1>Create Account</h1>
-        <p className="auth-subtitle">Join our community</p>
 
         {error && <div className="error-message">{error}</div>}
         {success && <div className="success-message">{success}</div>}
@@ -104,7 +103,7 @@ function SignUp() {
               name="firstname"
               value={formData.firstname}
               onChange={handleChange}
-              placeholder="Enter your first name"
+              placeholder="Enter first name"
               required
             />
           </div>
@@ -117,7 +116,7 @@ function SignUp() {
               name="lastname"
               value={formData.lastname}
               onChange={handleChange}
-              placeholder="Enter your last name"
+              placeholder="Enter last name"
               required
             />
           </div>
@@ -130,7 +129,7 @@ function SignUp() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="Enter email"
               required
             />
           </div>
@@ -143,7 +142,7 @@ function SignUp() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Enter your password (min 6 characters)"
+              placeholder="Enter password (min 6 characters)"
               required
             />
           </div>
@@ -156,7 +155,7 @@ function SignUp() {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              placeholder="Confirm your password"
+              placeholder="Confirm password"
               required
             />
           </div>
