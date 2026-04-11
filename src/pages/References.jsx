@@ -14,7 +14,7 @@ function References() {
         setLoading(true);
         setError('');
 
-        const response = await fetch('http://localhost:3000/api/references');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/references`);
         const data = await response.json();
 
         if (!response.ok) {

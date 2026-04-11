@@ -16,7 +16,7 @@ function UsersAdmin() {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:3000/api/users');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch users');
@@ -49,7 +49,7 @@ function UsersAdmin() {
       setLoading(true);
 
       // Delete user via API
-      const response = await fetch(`http://localhost:3000/api/users/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/${id}`, {
         method: 'DELETE',
       });
 
@@ -84,7 +84,7 @@ function UsersAdmin() {
       setShowPasswordPrompt(false);
 
       // Delete user via API
-      const response = await fetch(`http://localhost:3000/api/users/${userToDelete}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/${userToDelete}`, {
         method: 'DELETE',
       });
 

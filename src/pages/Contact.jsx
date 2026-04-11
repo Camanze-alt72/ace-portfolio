@@ -28,7 +28,7 @@ function Contact() {
     try {
       // Create user from contact form submission
       try {
-        const userResponse = await fetch('http://localhost:3000/api/users', {
+        const userResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

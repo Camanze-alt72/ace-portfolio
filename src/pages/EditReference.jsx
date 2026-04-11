@@ -103,7 +103,7 @@ function EditReference() {
         };
 
         // Try PUT first if reference exists
-        const putResponse = await fetch(`http://localhost:3000/api/references/${id}`, {
+        const putResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/references/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -113,7 +113,7 @@ function EditReference() {
 
         if (!putResponse.ok) {
           // If PUT fails, try POST for new reference
-          const postResponse = await fetch('http://localhost:3000/api/references', {
+          const postResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/references`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
