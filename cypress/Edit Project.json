@@ -1,0 +1,133 @@
+{
+    "title": "Edit Project",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 702,
+            "height": 668,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:5173/projects",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:5173/projects",
+                    "title": "My Portfolio"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Manage Projects"
+                ],
+                [
+                    "button"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div[1]/button"
+                ],
+                [
+                    "pierce/button"
+                ],
+                [
+                    "text/Manage Projects"
+                ]
+            ],
+            "offsetY": 25.239578247070312,
+            "offsetX": 72.93511962890625
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "div:nth-of-type(4) button.edit-btn"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div[2]/div[4]/div[1]/div/button[1]"
+                ],
+                [
+                    "pierce/div:nth-of-type(4) button.edit-btn"
+                ]
+            ],
+            "offsetY": 3.260406494140625,
+            "offsetX": 241
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Completion Date *"
+                ],
+                [
+                    "#completion"
+                ],
+                [
+                    "xpath///*[@id=\"completion\"]"
+                ],
+                [
+                    "pierce/#completion"
+                ],
+                [
+                    "text/2026-04-01"
+                ]
+            ],
+            "offsetY": 26.15625,
+            "offsetX": 151
+        },
+        {
+            "type": "change",
+            "value": "2026-04-10",
+            "selectors": [
+                [
+                    "aria/Completion Date *"
+                ],
+                [
+                    "#completion"
+                ],
+                [
+                    "xpath///*[@id=\"completion\"]"
+                ],
+                [
+                    "pierce/#completion"
+                ],
+                [
+                    "text/2026-04-01"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Update"
+                ],
+                [
+                    "button.submit-btn"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div[2]/form/div[4]/button[1]"
+                ],
+                [
+                    "pierce/button.submit-btn"
+                ],
+                [
+                    "text/Update"
+                ]
+            ],
+            "offsetY": 16.8228759765625,
+            "offsetX": 131
+        }
+    ]
+}

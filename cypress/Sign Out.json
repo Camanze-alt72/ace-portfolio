@@ -1,0 +1,86 @@
+{
+    "title": "Sign Out",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 702,
+            "height": 668,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:5173/dashboard",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:5173/dashboard",
+                    "title": "My Portfolio"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Sign Out"
+                ],
+                [
+                    "button"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/div[1]/button"
+                ],
+                [
+                    "pierce/button"
+                ],
+                [
+                    "text/Sign Out"
+                ]
+            ],
+            "offsetY": 17.625,
+            "offsetX": 367
+        },
+        {
+            "type": "change",
+            "value": "tellit2maobi@gmail.com",
+            "selectors": [
+                [
+                    "aria/Email *"
+                ],
+                [
+                    "#email"
+                ],
+                [
+                    "xpath///*[@id=\"email\"]"
+                ],
+                [
+                    "pierce/#email"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "CrayWay",
+            "selectors": [
+                [
+                    "aria/Password *"
+                ],
+                [
+                    "#password"
+                ],
+                [
+                    "xpath///*[@id=\"password\"]"
+                ],
+                [
+                    "pierce/#password"
+                ]
+            ],
+            "target": "main"
+        }
+    ]
+}

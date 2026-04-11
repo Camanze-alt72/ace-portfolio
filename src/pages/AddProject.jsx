@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiPost } from '../services/api';
 import './ProjectForm.css';
 
 function AddProject() {
@@ -10,10 +11,7 @@ function AddProject() {
     completion: ''
   });
   const [loading, setLoading] = useState(false);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
-
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,94 +19,36 @@ function AddProject() {
       ...prev,
       [name]: value
     }));
+    setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
     if (!formData.title || !formData.description || !formData.completion) {
-      alert('Please fill in all fields');
-      return;
-    }
-
-    // PASSWORD PROTECTION DISABLED - TO RE-ENABLE: uncomment setShowPasswordPrompt(true) and uncomment handlePasswordSubmit
-    // setShowPasswordPrompt(true);
-
-    // Direct submit without password (password protection disabled)
-    try {
-      setLoading(true);
-
-      const response = await fetch(`${API_BASE_URL}/api/projects`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          title: formData.title,
-          description: formData.description,
-          completion: new Date(formData.completion).toISOString(),
-          adminPassword: '' // Password disabled
-        })
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to add project');
-      }
-
-      alert('Project added successfully!');
-      navigate('/admin/projects');
-    } catch (err) {
-      alert('Error adding project: ' + err.message);
-      console.error('Error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // PASSWORD AUTHENTICATION DISABLED - UNCOMMENT TO RE-ENABLE
-  /*
-  const handlePasswordSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!adminPassword) {
-      alert('Please enter admin password');
+      setError('Please fill in all fields');
       return;
     }
 
     try {
       setLoading(true);
-      setShowPasswordPrompt(false);
 
-      const response = await fetch(`${API_BASE_URL}/api/projects`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          title: formData.title,
-          description: formData.description,
-          completion: new Date(formData.completion).toISOString(),
-          adminPassword: adminPassword
-        })
+      await apiPost('/api/projects', {
+        title: formData.title,
+        description: formData.description,
+        completion: new Date(formData.completion).toISOString()
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to add project');
-      }
-
       alert('Project added successfully!');
-      setAdminPassword('');
       navigate('/admin/projects');
     } catch (err) {
-      alert('Error adding project: ' + err.message);
+      setError(err.message || 'Error adding project');
       console.error('Error:', err);
     } finally {
       setLoading(false);
     }
   };
-  */
 
   return (
     <div className="project-form-page">
@@ -123,6 +63,8 @@ function AddProject() {
       </div>
 
       <div className="form-container">
+        {error && <div className="error-message">{error}</div>}
+        
         <form className="project-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="title">Project Title *</label>
@@ -177,45 +119,6 @@ function AddProject() {
           </div>
         </form>
       </div>
-
-      {/* PASSWORD PROMPT DISABLED - UNCOMMENT TO RE-ENABLE
-      {showPasswordPrompt && (
-        <div className="password-prompt-overlay">
-          <div className="password-prompt-modal">
-            <h2>Admin Authentication Required</h2>
-            <form onSubmit={handlePasswordSubmit}>
-              <div className="form-group">
-                <label htmlFor="adminPassword">Enter Admin Password:</label>
-                <input
-                  type="password"
-                  id="adminPassword"
-                  value={adminPassword}
-                  onChange={(e) => setAdminPassword(e.target.value)}
-                  placeholder="Enter admin password"
-                  autoFocus
-                  required
-                />
-              </div>
-              <div className="form-actions">
-                <button type="submit" className="submit-btn">
-                  Confirm
-                </button>
-                <button 
-                  type="button" 
-                  className="cancel-btn"
-                  onClick={() => {
-                    setShowPasswordPrompt(false);
-                    setAdminPassword('');
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-      */}
     </div>
   );
 }

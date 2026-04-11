@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { apiGet, apiPut } from '../services/api';
 import './UserForm.css';
 
 function EditUser() {
@@ -18,13 +19,7 @@ function EditUser() {
     const loadUser = async () => {
       try {
         setFetching(true);
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/${id}`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to load user');
-        }
-        
-        const data = await response.json();
+        const data = await apiGet(`/api/users/${id}`);
         setFormData({
           firstname: data.data.firstname,
           lastname: data.data.lastname
@@ -59,17 +54,7 @@ function EditUser() {
     try {
       setLoading(true);
 
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update user');
-      }
+      await apiPut(`/api/users/${id}`, formData);
 
       alert('User updated successfully!');
       navigate('/admin/users');

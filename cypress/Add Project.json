@@ -1,0 +1,285 @@
+{
+    "title": "Add Project",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 702,
+            "height": 668,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:5173/projects",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:5173/projects",
+                    "title": "My Portfolio"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Manage Projects"
+                ],
+                [
+                    "button"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div[1]/button"
+                ],
+                [
+                    "pierce/button"
+                ],
+                [
+                    "text/Manage Projects"
+                ]
+            ],
+            "offsetY": 28.239578247070312,
+            "offsetX": 122.93511962890625
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Add New Project"
+                ],
+                [
+                    "div.admin-header > button"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div[1]/button"
+                ],
+                [
+                    "pierce/div.admin-header > button"
+                ],
+                [
+                    "text/Add New Project"
+                ]
+            ],
+            "offsetY": 17.333328247070312,
+            "offsetX": 349
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Project Title *"
+                ],
+                [
+                    "#title"
+                ],
+                [
+                    "xpath///*[@id=\"title\"]"
+                ],
+                [
+                    "pierce/#title"
+                ]
+            ],
+            "offsetY": 22.197914123535156,
+            "offsetX": 73
+        },
+        {
+            "type": "change",
+            "value": "T",
+            "selectors": [
+                [
+                    "aria/Project Title *"
+                ],
+                [
+                    "#title"
+                ],
+                [
+                    "xpath///*[@id=\"title\"]"
+                ],
+                [
+                    "pierce/#title"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main",
+            "key": "CapsLock"
+        },
+        {
+            "type": "keyUp",
+            "key": "CapsLock",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "Test ",
+            "selectors": [
+                [
+                    "aria/Project Title *"
+                ],
+                [
+                    "#title"
+                ],
+                [
+                    "xpath///*[@id=\"title\"]"
+                ],
+                [
+                    "pierce/#title"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main",
+            "key": "CapsLock"
+        },
+        {
+            "type": "keyUp",
+            "key": "CapsLock",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "Test P",
+            "selectors": [
+                [
+                    "aria/Project Title *"
+                ],
+                [
+                    "#title"
+                ],
+                [
+                    "xpath///*[@id=\"title\"]"
+                ],
+                [
+                    "pierce/#title"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main",
+            "key": "CapsLock"
+        },
+        {
+            "type": "keyUp",
+            "key": "CapsLock",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "Test Project",
+            "selectors": [
+                [
+                    "aria/Project Title *"
+                ],
+                [
+                    "#title"
+                ],
+                [
+                    "xpath///*[@id=\"title\"]"
+                ],
+                [
+                    "pierce/#title"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main",
+            "key": "Tab"
+        },
+        {
+            "type": "keyUp",
+            "key": "Tab",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "A conversational AI chatbot built with React and a Node.js proxy server, integrated with Hugging Face models for real-time AI responses.",
+            "selectors": [
+                [
+                    "aria/Description *"
+                ],
+                [
+                    "#description"
+                ],
+                [
+                    "xpath///*[@id=\"description\"]"
+                ],
+                [
+                    "pierce/#description"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Completion Date *"
+                ],
+                [
+                    "#completion"
+                ],
+                [
+                    "xpath///*[@id=\"completion\"]"
+                ],
+                [
+                    "pierce/#completion"
+                ]
+            ],
+            "offsetY": 25.15625,
+            "offsetX": 153
+        },
+        {
+            "type": "change",
+            "value": "2026-04-01",
+            "selectors": [
+                [
+                    "aria/Completion Date *"
+                ],
+                [
+                    "#completion"
+                ],
+                [
+                    "xpath///*[@id=\"completion\"]"
+                ],
+                [
+                    "pierce/#completion"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Add"
+                ],
+                [
+                    "button.submit-btn"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div[2]/form/div[4]/button[1]"
+                ],
+                [
+                    "pierce/button.submit-btn"
+                ]
+            ],
+            "offsetY": 13.8228759765625,
+            "offsetX": 99
+        }
+    ]
+}

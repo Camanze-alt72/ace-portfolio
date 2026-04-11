@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiGet, apiDelete } from '../services/api';
 import './ReferencesAdmin.css';
 
 function ReferencesAdmin() {
@@ -14,12 +15,7 @@ function ReferencesAdmin() {
         setLoading(true);
         setError('');
 
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/references`);
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.message || 'Failed to fetch references');
-        }
+        const data = await apiGet('/api/references');
 
         const apiReferences = Array.isArray(data.data) ? data.data : [];
 
@@ -52,16 +48,7 @@ function ReferencesAdmin() {
     try {
       setLoading(true);
 
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/references/${id}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' }
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to delete reference');
-      }
+      await apiDelete(`/api/references/${id}`);
 
       setReferences((prev) => prev.filter((reference) => reference.id !== id));
       alert('Reference removed!');

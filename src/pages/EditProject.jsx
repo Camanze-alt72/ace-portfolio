@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { apiGet, apiPut, apiPost } from '../services/api';
 import './ProjectForm.css';
 
 function EditProject() {
@@ -13,10 +14,6 @@ function EditProject() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
-
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   // Default projects for fallback
   const defaultProjects = {
@@ -42,26 +39,15 @@ function EditProject() {
     const fetchProject = async () => {
       try {
         setFetching(true);
-        const response = await fetch(`${API_BASE_URL}/api/projects/${id}`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          setFormData({
-            title: data.data.title,
-            description: data.data.description,
-            completion: data.data.completion.split('T')[0]
-          });
-        } else {
-          // Use fallback data for default projects
-          if (defaultProjects[id]) {
-            setFormData(defaultProjects[id]);
-          } else {
-            throw new Error('Project not found');
-          }
-        }
+        const data = await apiGet(`/api/projects/${id}`);
+        setFormData({
+          title: data.data.title,
+          description: data.data.description,
+          completion: data.data.completion.split('T')[0]
+        });
         setError(null);
       } catch (err) {
-        // Try fallback data
+        // Use fallback data for default projects
         if (defaultProjects[id]) {
           setFormData(defaultProjects[id]);
           setError(null);
@@ -75,7 +61,7 @@ function EditProject() {
     };
 
     fetchProject();
-  }, [id, API_BASE_URL]);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,124 +69,48 @@ function EditProject() {
       ...prev,
       [name]: value
     }));
+    setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
     if (!formData.title || !formData.description || !formData.completion) {
-      alert('Please fill in all fields');
+      setError('Please fill in all fields');
       return;
     }
 
-    // PASSWORD PROTECTION DISABLED - TO RE-ENABLE: uncomment setShowPasswordPrompt(true) and uncomment handlePasswordSubmit
-    // setShowPasswordPrompt(true);
-
-    // Direct submit without password (password protection disabled)
     try {
       setLoading(true);
 
       const projectData = {
         title: formData.title,
         description: formData.description,
-        completion: new Date(formData.completion).toISOString(),
-        adminPassword: '' // Password disabled
+        completion: new Date(formData.completion).toISOString()
       };
 
-      // Always try PUT first for any ID (works for both string IDs and ObjectIds)
-      let response = await fetch(`${API_BASE_URL}/api/projects/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(projectData)
-      });
-
-      // If project doesn't exist (404), create it instead
-      if (response.status === 404) {
-        response = await fetch(`${API_BASE_URL}/api/projects`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(projectData)
-        });
-      }
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to save project');
+      // Try PUT first (for existing projects)
+      try {
+        await apiPut(`/api/projects/${id}`, projectData);
+      } catch (err) {
+        // If PUT fails with 404, try POST instead
+        if (err.status === 404) {
+          await apiPost('/api/projects', projectData);
+        } else {
+          throw err;
+        }
       }
 
       alert('Project saved successfully!');
       navigate('/admin/projects');
     } catch (err) {
-      alert('Error saving project: ' + err.message);
+      setError(err.message || 'Error saving project');
       console.error('Error:', err);
     } finally {
       setLoading(false);
     }
   };
-
-  // PASSWORD AUTHENTICATION DISABLED - UNCOMMENT TO RE-ENABLE
-  /*
-  const handlePasswordSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!adminPassword) {
-      alert('Please enter admin password');
-      return;
-    }
-
-    try {
-      setLoading(true);
-      setShowPasswordPrompt(false);
-
-      const projectData = {
-        title: formData.title,
-        description: formData.description,
-        completion: new Date(formData.completion).toISOString(),
-        adminPassword: adminPassword
-      };
-
-      let response;
-      
-      // Always try PUT first for any ID (works for both string IDs and ObjectIds)
-      response = await fetch(`${API_BASE_URL}/api/projects/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(projectData)
-      });
-
-      // If project doesn't exist (404), create it instead
-      if (response.status === 404) {
-        response = await fetch(`${API_BASE_URL}/api/projects`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(projectData)
-        });
-      }
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to save project');
-      }
-
-      alert('Project saved successfully!');
-      setAdminPassword('');
-      navigate('/admin/projects');
-    } catch (err) {
-      alert('Error saving project: ' + err.message);
-      console.error('Error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-  */
 
   if (fetching) {
     return <div className="project-form-page"><p>Loading project...</p></div>;
@@ -230,6 +140,8 @@ function EditProject() {
       </div>
 
       <div className="form-container">
+        {error && <div className="error-message">{error}</div>}
+        
         <form className="project-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="title">Project Title *</label>
@@ -284,45 +196,6 @@ function EditProject() {
           </div>
         </form>
       </div>
-
-      {/* PASSWORD PROMPT DISABLED - UNCOMMENT TO RE-ENABLE
-      {showPasswordPrompt && (
-        <div className="password-prompt-overlay">
-          <div className="password-prompt-modal">
-            <h2>Admin Authentication Required</h2>
-            <form onSubmit={handlePasswordSubmit}>
-              <div className="form-group">
-                <label htmlFor="adminPassword">Enter Admin Password:</label>
-                <input
-                  type="password"
-                  id="adminPassword"
-                  value={adminPassword}
-                  onChange={(e) => setAdminPassword(e.target.value)}
-                  placeholder="Enter admin password"
-                  autoFocus
-                  required
-                />
-              </div>
-              <div className="form-actions">
-                <button type="submit" className="submit-btn">
-                  Confirm
-                </button>
-                <button 
-                  type="button" 
-                  className="cancel-btn"
-                  onClick={() => {
-                    setShowPasswordPrompt(false);
-                    setAdminPassword('');
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-      */}
     </div>
   );
 }

@@ -6,22 +6,23 @@ import {
   updateProject,
   deleteProject
 } from '../controllers/projectController.js';
+import { verifyToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// GET all projects
+// GET all projects (public)
 router.get('/', getAllProjects);
 
-// GET project by ID
+// GET project by ID (public)
 router.get('/:id', getProjectById);
 
-// POST add new project
-router.post('/', addProject);
+// POST add new project (protected)
+router.post('/', verifyToken, addProject);
 
-// PUT update project by ID
-router.put('/:id', updateProject);
+// PUT update project by ID (protected)
+router.put('/:id', verifyToken, updateProject);
 
-// DELETE remove project by ID
-router.delete('/:id', deleteProject);
+// DELETE remove project by ID (protected)
+router.delete('/:id', verifyToken, deleteProject);
 
 export default router;

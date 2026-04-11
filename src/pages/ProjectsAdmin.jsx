@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiGet, apiPost, apiDelete } from '../services/api';
 import './ProjectsAdmin.css';
 
 function ProjectsAdmin() {
@@ -7,11 +8,6 @@ function ProjectsAdmin() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
-  const [projectToDelete, setProjectToDelete] = useState(null);
-
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   // Default/hardcoded projects
   const defaultProjects = [
@@ -51,13 +47,7 @@ function ProjectsAdmin() {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE_URL}/api/projects`);
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch projects');
-      }
-
-      const data = await response.json();
+      const data = await apiGet('/api/projects');
       
       // Get API project titles
       let apiProjects = data.data || [];
@@ -70,14 +60,10 @@ function ProjectsAdmin() {
       if (missingDefaults.length > 0) {
         for (const project of missingDefaults) {
           try {
-            await fetch(`${API_BASE_URL}/api/projects`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                title: project.title,
-                description: project.description,
-                completion: project.completion
-              })
+            await apiPost('/api/projects', {
+              title: project.title,
+              description: project.description,
+              completion: project.completion
             });
           } catch (err) {
             console.error(`Failed to create default project ${project.title}:`, err);
@@ -85,11 +71,8 @@ function ProjectsAdmin() {
         }
         
         // Re-fetch after creating missing projects
-        const refetchResponse = await fetch(`${API_BASE_URL}/api/projects`);
-        if (refetchResponse.ok) {
-          const refetchData = await refetchResponse.json();
-          apiProjects = refetchData.data || [];
-        }
+        const refetchData = await apiGet('/api/projects');
+        apiProjects = refetchData.data || [];
       }
       
       if (apiProjects && apiProjects.length > 0) {
@@ -126,27 +109,9 @@ function ProjectsAdmin() {
       return;
     }
 
-    // PASSWORD PROTECTION DISABLED - TO RE-ENABLE: uncomment setShowPasswordPrompt(true) and uncomment handlePasswordSubmit
-    // setProjectToDelete(id);
-    // setShowPasswordPrompt(true);
-
-    // Direct delete without password (password protection disabled)
     try {
       setLoading(true);
-
-      const response = await fetch(`${API_BASE_URL}/api/projects/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ adminPassword: '' }) // Password disabled
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to delete project');
-      }
-
+      await apiDelete(`/api/projects/${id}`);
       alert('Project deleted successfully!');
       fetchProjects();
     } catch (err) {

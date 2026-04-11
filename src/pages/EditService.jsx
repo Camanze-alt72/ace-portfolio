@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { apiGet, apiPut, apiPost } from '../services/api';
 import './ServiceForm.css';
 
 function EditService() {
@@ -12,57 +13,19 @@ function EditService() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-  // Default services for fallback
-  const defaultServices = {
-    '1': {
-      title: "Database Design & Management",
-      description: "I design and manage well-structured relational databases with a focus on data integrity, efficiency, and scalability. My work emphasizes clean schemas, optimized queries, and reliable data handling."
-    },
-    '2': {
-      title: "Data-Driven Web Applications",
-      description: "I build web applications powered by structured data, where databases drive features such as tracking, reporting, and user interactions across devices."
-    },
-    '3': {
-      title: "Backend & System Logic",
-      description: "I develop backend logic that connects applications to databases, handling business rules, validations, and workflows to ensure systems run smoothly."
-    },
-    '4': {
-      title: "Custom Software Systems",
-      description: "I create custom software solutions and management tools that turn real-world processes into reliable digital systems."
-    }
-  };
-
-  // Load service data from localStorage
+  // Load service data from API
   useEffect(() => {
-    const loadService = () => {
+    const loadService = async () => {
       try {
         setFetching(true);
-        const savedServices = localStorage.getItem('services');
-        const services = savedServices ? JSON.parse(savedServices) : [];
-        
-        const service = services.find(s => s.id === parseInt(id));
-        
-        if (service) {
-          setFormData({
-            title: service.title,
-            description: service.description
-          });
-        } else if (defaultServices[id]) {
-          setFormData(defaultServices[id]);
-        } else {
-          setError('Service not found');
-        }
+        const data = await apiGet(`/api/services/${id}`);
+        setFormData({
+          title: data.title,
+          description: data.description
+        });
       } catch (err) {
-        if (defaultServices[id]) {
-          setFormData(defaultServices[id]);
-        } else {
-          setError(err.message);
-        }
+        setError(err.message);
         console.error('Error loading service:', err);
       } finally {
         setFetching(false);
@@ -88,40 +51,27 @@ function EditService() {
       return;
     }
 
-    // PASSWORD PROTECTION DISABLED - TO RE-ENABLE: uncomment setShowPasswordPrompt(true) and uncomment handlePasswordSubmit
-    // setShowPasswordPrompt(true);
-
-    // Direct submit without password (password protection disabled)
     try {
       setLoading(true);
 
-      // Load existing services from localStorage
-      const savedServices = localStorage.getItem('services');
-      let services = savedServices ? JSON.parse(savedServices) : [];
+      const servicePayload = {
+        title: formData.title,
+        description: formData.description
+      };
 
-      // Update or create service
-      const serviceIndex = services.findIndex(s => s.id === parseInt(id));
-      
-      if (serviceIndex >= 0) {
-        // Update existing service
-        services[serviceIndex] = {
-          ...services[serviceIndex],
-          title: formData.title,
-          description: formData.description
-        };
-      } else {
-        // Create new service
-        const newService = {
-          id: parseInt(id),
-          title: formData.title,
-          description: formData.description,
-          image: '🔧'
-        };
-        services.push(newService);
+      // Try PUT first if service exists
+      try {
+        await apiPut(`/api/services/${id}`, servicePayload);
+        console.log('Service updated in MongoDB successfully');
+      } catch {
+        // If PUT fails, try POST for new service
+        try {
+          await apiPost('/api/services', servicePayload);
+          console.log('Service saved to MongoDB successfully');
+        } catch (postErr) {
+          console.warn('Service API save warning:', postErr.message || 'Failed to save service');
+        }
       }
-
-      // Save updated services
-      localStorage.setItem('services', JSON.stringify(services));
 
       alert('Service saved successfully!');
       navigate('/admin/services');

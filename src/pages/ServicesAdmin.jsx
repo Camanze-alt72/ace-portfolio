@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiGet, apiDelete } from '../services/api';
 import './ServicesAdmin.css';
 
 function ServicesAdmin() {
@@ -7,76 +8,40 @@ function ServicesAdmin() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
-  const [serviceToDelete, setServiceToDelete] = useState(null);
 
-  // Default/hardcoded services
-  const defaultServices = [
-    {
-      id: 1,
-      title: "Database Design & Management",
-      description: "I design and manage well-structured relational databases with a focus on data integrity, efficiency, and scalability. My work emphasizes clean schemas, optimized queries, and reliable data handling.",
-      image: "🗄️",
-    },
-    {
-      id: 2,
-      title: "Data-Driven Web Applications",
-      description: "I build web applications powered by structured data, where databases drive features such as tracking, reporting, and user interactions across devices.",
-      image: "📊",
-    },
-    {
-      id: 3,
-      title: "Backend & System Logic",
-      description: "I develop backend logic that connects applications to databases, handling business rules, validations, and workflows to ensure systems run smoothly.",
-      image: "🧠",
-    },
-    {
-      id: 4,
-      title: "Custom Software Systems",
-      description: "I create custom software solutions and management tools that turn real-world processes into reliable digital systems.",
-      image: "⚙️",
-    },
-  ];
-
-  // Load services from localStorage on mount
+  // Load services from API on mount
   useEffect(() => {
-    const savedServices = localStorage.getItem('services');
-    if (savedServices) {
+    const loadServices = async () => {
       try {
-        setServices(JSON.parse(savedServices));
-      } catch {
-        setServices(defaultServices);
-        localStorage.setItem('services', JSON.stringify(defaultServices));
+        setLoading(true);
+        setError(null);
+        const data = await apiGet('/api/services');
+        setServices(Array.isArray(data.data) ? data.data : []);
+      } catch (err) {
+        console.error('Error fetching services:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-    } else {
-      setServices(defaultServices);
-      localStorage.setItem('services', JSON.stringify(defaultServices));
-    }
-    setLoading(false);
+    };
+
+    loadServices();
   }, []);
 
 
 
   // Delete service
-  const handleDeleteService = (id) => {
+  const handleDeleteService = async (id) => {
     if (!window.confirm('Are you sure you want to delete this service?')) {
       return;
     }
 
-    // PASSWORD PROTECTION DISABLED - TO RE-ENABLE: uncomment setShowPasswordPrompt(true) and uncomment handlePasswordSubmit
-    // setServiceToDelete(id);
-    // setShowPasswordPrompt(true);
-
-    // Direct delete without password (password protection disabled)
     try {
       setLoading(true);
 
-      // Remove service from state and save to localStorage
-      const updatedServices = services.filter(s => s.id !== id);
-      setServices(updatedServices);
-      localStorage.setItem('services', JSON.stringify(updatedServices));
-      
+      await apiDelete(`/api/services/${id}`);
+
+      setServices((prev) => prev.filter((service) => service.id !== id));
       alert('Service removed!');
     } catch (err) {
       alert('Error: ' + err.message);

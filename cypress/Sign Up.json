@@ -1,0 +1,239 @@
+{
+    "title": "Sign Up",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 702,
+            "height": 668,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:5173/",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:5173/",
+                    "title": "My Portfolio"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Sign Up"
+                ],
+                [
+                    "li:nth-of-type(9) > a"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/nav/div/ul/li[9]/a"
+                ],
+                [
+                    "pierce/li:nth-of-type(9) > a"
+                ],
+                [
+                    "text/Sign Up"
+                ]
+            ],
+            "offsetY": 8.447914123535156,
+            "offsetX": 38.05207824707031
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/First Name *"
+                ],
+                [
+                    "#firstname"
+                ],
+                [
+                    "xpath///*[@id=\"firstname\"]"
+                ],
+                [
+                    "pierce/#firstname"
+                ]
+            ],
+            "offsetY": 26.1875,
+            "offsetX": 139
+        },
+        {
+            "type": "change",
+            "value": "Chimaobi",
+            "selectors": [
+                [
+                    "aria/First Name *"
+                ],
+                [
+                    "#firstname"
+                ],
+                [
+                    "xpath///*[@id=\"firstname\"]"
+                ],
+                [
+                    "pierce/#firstname"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "Emmanuel",
+            "selectors": [
+                [
+                    "aria/Last Name *"
+                ],
+                [
+                    "#lastname"
+                ],
+                [
+                    "xpath///*[@id=\"lastname\"]"
+                ],
+                [
+                    "pierce/#lastname"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "tellit7maobi@gmail.com",
+            "selectors": [
+                [
+                    "aria/Email *"
+                ],
+                [
+                    "#email"
+                ],
+                [
+                    "xpath///*[@id=\"email\"]"
+                ],
+                [
+                    "pierce/#email"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main"
+        },
+        {
+            "type": "keyUp",
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main"
+        },
+        {
+            "type": "keyUp",
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Password *"
+                ],
+                [
+                    "#password"
+                ],
+                [
+                    "xpath///*[@id=\"password\"]"
+                ],
+                [
+                    "pierce/#password"
+                ]
+            ],
+            "offsetY": 28.25,
+            "offsetX": 100
+        },
+        {
+            "type": "change",
+            "value": "123456",
+            "selectors": [
+                [
+                    "aria/Password *"
+                ],
+                [
+                    "#password"
+                ],
+                [
+                    "xpath///*[@id=\"password\"]"
+                ],
+                [
+                    "pierce/#password"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Confirm Password *"
+                ],
+                [
+                    "#confirmPassword"
+                ],
+                [
+                    "xpath///*[@id=\"confirmPassword\"]"
+                ],
+                [
+                    "pierce/#confirmPassword"
+                ]
+            ],
+            "offsetY": 21.6041259765625,
+            "offsetX": 103
+        },
+        {
+            "type": "change",
+            "value": "123456",
+            "selectors": [
+                [
+                    "aria/Confirm Password *"
+                ],
+                [
+                    "#confirmPassword"
+                ],
+                [
+                    "xpath///*[@id=\"confirmPassword\"]"
+                ],
+                [
+                    "pierce/#confirmPassword"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Sign Up[role=\"button\"]"
+                ],
+                [
+                    "button"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/div/main/div/div/form/button"
+                ],
+                [
+                    "pierce/button"
+                ]
+            ],
+            "offsetY": 25.739013671875,
+            "offsetX": 198
+        }
+    ]
+}

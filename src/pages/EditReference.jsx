@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { apiGet, apiPut, apiPost } from '../services/api';
 import './ReferenceForm.css';
 
 function EditReference() {
@@ -14,53 +15,21 @@ function EditReference() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
 
-  // Default references for fallback
-  const defaultReferences = {
-    '1': {
-      name: "Kelvin Obi",
-      title: "Audio Technician",
-      company: "Encore",
-      message: "Chimaobi delivered a well-designed and efficient solution that makes managing tasks and tracking work seamless."
-    },
-    '2': {
-      name: "Wisdom Owie Osasenaga",
-      title: "Audio Technician",
-      company: "Freelancer",
-      message: "Chimaobi created a practical and user-friendly system that simplifies workflow and improves organization."
-    }
-  };
-
-  // Load reference data from localStorage
+  // Load reference data from API
   useEffect(() => {
-    const loadReference = () => {
+    const loadReference = async () => {
       try {
         setFetching(true);
-        const savedReferences = localStorage.getItem('references');
-        const references = savedReferences ? JSON.parse(savedReferences) : [];
-        
-        const reference = references.find(r => r.id === parseInt(id));
-        
-        if (reference) {
-          setFormData({
-            name: reference.name,
-            title: reference.title,
-            company: reference.company,
-            message: reference.message
-          });
-        } else if (defaultReferences[id]) {
-          setFormData(defaultReferences[id]);
-        } else {
-          setError('Reference not found');
-        }
+        const data = await apiGet(`/api/references/${id}`);
+        setFormData({
+          name: data.name,
+          title: data.title,
+          company: data.company,
+          message: data.message
+        });
       } catch (err) {
-        if (defaultReferences[id]) {
-          setFormData(defaultReferences[id]);
-        } else {
-          setError(err.message);
-        }
+        setError(err.message);
         console.error('Error loading reference:', err);
       } finally {
         setFetching(false);
@@ -86,14 +55,9 @@ function EditReference() {
       return;
     }
 
-    // PASSWORD PROTECTION DISABLED - TO RE-ENABLE: uncomment setShowPasswordPrompt(true) and uncomment handlePasswordSubmit
-    // setShowPasswordPrompt(true);
-
-    // Direct submit without password (password protection disabled)
     try {
       setLoading(true);
 
-      // Save to MongoDB via API
       try {
         const referencePayload = {
           name: formData.name,
@@ -103,67 +67,21 @@ function EditReference() {
         };
 
         // Try PUT first if reference exists
-        const putResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/references/${id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(referencePayload)
-        });
-
-        if (!putResponse.ok) {
-          // If PUT fails, try POST for new reference
-          const postResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/references`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(referencePayload)
-          });
-
-          if (!postResponse.ok) {
-            const errorData = await postResponse.json();
-            console.warn('Reference API save warning:', errorData.message || 'Failed to save reference');
-          } else {
-            console.log('Reference saved to MongoDB successfully');
-          }
-        } else {
+        try {
+          await apiPut(`/api/references/${id}`, referencePayload);
           console.log('Reference updated in MongoDB successfully');
+        } catch {
+          // If PUT fails, try POST for new reference
+          try {
+            await apiPost('/api/references', referencePayload);
+            console.log('Reference saved to MongoDB successfully');
+          } catch (postErr) {
+            console.warn('Reference API save warning:', postErr.message || 'Failed to save reference');
+          }
         }
       } catch (refErr) {
         console.error('Error saving reference to MongoDB:', refErr);
       }
-
-      // Load existing references from localStorage
-      const savedReferences = localStorage.getItem('references');
-      let references = savedReferences ? JSON.parse(savedReferences) : [];
-
-      // Update or create reference
-      const referenceIndex = references.findIndex(r => r.id === parseInt(id));
-      
-      if (referenceIndex >= 0) {
-        // Update existing reference
-        references[referenceIndex] = {
-          ...references[referenceIndex],
-          name: formData.name,
-          title: formData.title,
-          company: formData.company,
-          message: formData.message
-        };
-      } else {
-        // Create new reference
-        const newReference = {
-          id: parseInt(id),
-          name: formData.name,
-          title: formData.title,
-          company: formData.company,
-          message: formData.message
-        };
-        references.push(newReference);
-      }
-
-      // Save updated references
-      localStorage.setItem('references', JSON.stringify(references));
 
       alert('Reference saved successfully!');
       navigate('/admin/references');

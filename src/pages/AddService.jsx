@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiPost } from '../services/api';
 import './ServiceForm.css';
 
 function AddService() {
@@ -9,10 +10,6 @@ function AddService() {
     description: ''
   });
   const [loading, setLoading] = useState(false);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
-
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,28 +27,13 @@ function AddService() {
       return;
     }
 
-    // PASSWORD PROTECTION DISABLED - TO RE-ENABLE: uncomment setShowPasswordPrompt(true) and uncomment handlePasswordSubmit
-    // setShowPasswordPrompt(true);
-
-    // Direct submit without password (password protection disabled)
     try {
       setLoading(true);
 
-      // Load existing services from localStorage
-      const savedServices = localStorage.getItem('services');
-      const services = savedServices ? JSON.parse(savedServices) : [];
-
-      // Create new service with unique ID
-      const newService = {
-        id: Math.max(...services.map(s => s.id), 0) + 1,
+      await apiPost('/api/services', {
         title: formData.title,
-        description: formData.description,
-        image: '🔧'
-      };
-
-      // Add to services and save
-      const updatedServices = [...services, newService];
-      localStorage.setItem('services', JSON.stringify(updatedServices));
+        description: formData.description
+      });
 
       alert('Service added successfully!');
       navigate('/admin/services');

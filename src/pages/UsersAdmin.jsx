@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiGet, apiDelete } from '../services/api';
 import './UsersAdmin.css';
 
 function UsersAdmin() {
@@ -7,22 +8,13 @@ function UsersAdmin() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
-  const [userToDelete, setUserToDelete] = useState(null);
 
   // Load users from API on mount
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch users');
-        }
-        
-        const data = await response.json();
+        const data = await apiGet('/api/users');
         setUsers(data.data || []);
       } catch (err) {
         setError(err.message);
@@ -40,22 +32,10 @@ function UsersAdmin() {
       return;
     }
 
-    // PASSWORD PROTECTION DISABLED - TO RE-ENABLE: uncomment setShowPasswordPrompt(true) and uncomment handlePasswordSubmit
-    // setUserToDelete(id);
-    // setShowPasswordPrompt(true);
-
-    // Direct delete without password (password protection disabled)
     try {
       setLoading(true);
 
-      // Delete user via API
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete user');
-      }
+      await apiDelete(`/api/users/${id}`);
 
       // Remove from state
       setUsers(users.filter(u => u.id !== id));

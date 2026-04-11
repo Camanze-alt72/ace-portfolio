@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiPost } from '../services/api';
 import './UserForm.css';
 
 function AddUser() {
@@ -29,17 +30,7 @@ function AddUser() {
     try {
       setLoading(true);
 
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create user');
-      }
+      await apiPost('/api/users', formData);
 
       alert('User added successfully!');
       navigate('/admin/users');

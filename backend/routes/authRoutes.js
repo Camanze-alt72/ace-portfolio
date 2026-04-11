@@ -1,9 +1,15 @@
 import express from 'express';
-import { adminLogin } from '../controllers/authController.js';
+import { signup, signin, adminLogin } from '../controllers/authController.js';
 
 const router = express.Router();
 
-// POST login
-router.post('/login', adminLogin);
+// POST sign up - create new user
+router.post('/signup', signup);
+
+// POST sign in - authenticate user
+router.post('/signin', signin);
+
+// POST admin login - legacy admin access
+router.post('/admin/login', adminLogin);
 
 export default router;

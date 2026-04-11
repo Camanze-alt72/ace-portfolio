@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiPost } from '../services/api';
 import './ReferenceForm.css';
 
 function AddReference() {
@@ -31,24 +32,12 @@ function AddReference() {
     try {
       setLoading(true);
 
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/references`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          title: formData.title,
-          company: formData.company,
-          message: formData.message
-        })
+      await apiPost('/api/references', {
+        name: formData.name,
+        title: formData.title,
+        company: formData.company,
+        message: formData.message
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to add reference');
-      }
 
       alert('Reference added successfully!');
       navigate('/references');
