@@ -17,27 +17,16 @@ function Navigation() {
           <li><Link to="/about">About</Link></li>
           <li><Link to="/projects">Projects</Link></li>
           <li><Link to="/services">Services</Link></li>
-          <li><Link to="/references">References</Link></li>
-          <li><Link to="/users">Users</Link></li>
           <li><Link to="/contact">Contact</Link></li>
           
           {/* Auth Section */}
           <div className="nav-divider"></div>
-          {!loading && (
+          {!loading && isAuthenticated && (
             <>
-              {isAuthenticated ? (
-                <>
-                  <li className="user-info">
-                    <span>Hi, {user?.firstname}!</span>
-                  </li>
-                  <li><Link to="/dashboard" className="nav-link-dashboard">Dashboard</Link></li>
-                </>
-              ) : (
-                <>
-                  <li><Link to="/signin" className="nav-link-signin">Sign In</Link></li>
-                  <li><Link to="/signup" className="nav-link-signup">Sign Up</Link></li>
-                </>
-              )}
+              <li className="user-info">
+                <span>Hi, {user?.firstname}!</span>
+              </li>
+              <li><Link to="/dashboard" className="nav-link-dashboard">Dashboard</Link></li>
             </>
           )}
         </ul>

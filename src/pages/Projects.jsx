@@ -79,12 +79,6 @@ function Projects() {
           <h2 className="section-subtitle">PROJECTS</h2>
           <h1 className="section-title">My Recent Works</h1>
         </div>
-        <button 
-          className="manage-projects-btn"
-          onClick={() => navigate('/admin/projects')}
-        >
-          Manage Projects
-        </button>
       </div>
 
       <div className="projects-container">

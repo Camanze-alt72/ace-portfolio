@@ -4,12 +4,7 @@ import './Dashboard.css';
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
+  const { user } = useAuth();
 
   const menuItems = [
     { label: 'Projects', path: '/projects', icon: '📁' },
@@ -26,9 +21,6 @@ function Dashboard() {
             <h1>Welcome, {user?.firstname}!</h1>
             <p className="subtitle">Manage portfolio</p>
           </div>
-          <button className="logout-button" onClick={handleLogout}>
-            Sign Out
-          </button>
         </div>
 
         <div className="dashboard-grid">

@@ -35,12 +35,6 @@ function Users() {
     <div className="users">
       <div className="users-header">
         <h1>Users</h1>
-        <button 
-          className="manage-users-btn"
-          onClick={() => navigate('/admin/users')}
-        >
-          Manage Users
-        </button>
       </div>
 
       <div className="users-container">

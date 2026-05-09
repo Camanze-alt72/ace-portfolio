@@ -61,12 +61,6 @@ function Services() {
           <h2 className="section-subtitle">SERVICES</h2>
           <h1 className="section-title">Here's what I can offer</h1>
         </div>
-        <button 
-          className="manage-services-btn"
-          onClick={() => navigate('/admin/services')}
-        >
-          Manage Services
-        </button>
       </div>
 
       <div className="services-container">

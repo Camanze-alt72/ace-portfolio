@@ -56,12 +56,6 @@ function References() {
           >
             Add Reference
           </button>
-          <button
-            className="manage-references-btn"
-            onClick={() => navigate('/admin/references')}
-          >
-            Manage References
-          </button>
         </div>
       </div>
 
